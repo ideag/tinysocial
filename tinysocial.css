@@ -1,0 +1,12 @@
+a.tinysocial{
+	white-space : pre;
+}
+a.tinysocial i.fa-buffer{
+	background-image : url('images/buffer.svg');
+	background-size  : contain;
+	display			 : inline-block;
+	height			 : 14px;
+	width			 : 14px;
+	transform : none;
+	color: inherit;
+}
