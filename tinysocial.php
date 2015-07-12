@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: tinySocial
-Description: Easy way to insert lightweight social sharing links to your posts/pages.
+Description: Easy way to insert lightweight social sharing links to your posts/pages via shortcodes.
 Author: Arūnas Liuiza
-Version: 0.9.0
+Version: 1.0.0
 Author URI: http://arunas.co/
 Plugin URI: http://arunas.co/tinysocial
 License: GPL2 or later
@@ -11,10 +11,13 @@ Text Domain: tinysocial
 Domain Path: /languages
 */
 
-add_action('plugins_loaded',array('tinySocial','init') );
+add_action( 'plugins_loaded', array( 'tinySocial', 'init' ) );
+register_activation_hook( __FILE__,  array( 'tinySocial', 'activate' ) );
+register_deactivation_hook( __FILE__,  array( 'tinySocial', 'deactivate' ) );
 
 class tinySocial {
 	private static $network_defaults = array();
+	private static $fontawesome = '4.2.0';
 	public static $options = array(
 		'link_template'    => '<a href="{href}" class="tinysocial {class}"{analytics}>{icon_template}{title}</a>',
 		'icon_template'    => '<i class="fa fa-{icon}"></i> ',
@@ -94,7 +97,9 @@ class tinySocial {
 		if ( is_admin() ) {
 			add_action( 'admin_menu', array( 'tinySocial', 'admin_init'  ) );
 		}
-
+		// FontAwesome version
+        self::$fontawesome = self::get_fontawesome_version( self::$fontawesome, false );
+		add_action( 'tinysocial_daily', array( 'tinySocial', 'get_fontawesome_version' ) );
 		// network specific shortcodes and action hooks
 		foreach ( array_keys( self::$network_defaults ) as $network ) {
 			add_shortcode( $network,          array( 'tinySocial', 'shortcode' ) );
@@ -112,6 +117,36 @@ class tinySocial {
 			add_filter( 'the_content', array( 'tinySocial', 'content' ), 1 );
 		}
 		add_filter( 'tinysocial_network_args', array( 'tinySocial', 'better_links' ) );
+	}
+	private static function get_fontawesome_version( $current= false, $fetch = true ) {
+		$version = get_transient('tinysocial_fontawesome');
+		// $version = false;
+		if ( false === $version && true === $fetch ) {
+			$response = wp_remote_get( 'http://api.jsdelivr.com/v1/bootstrap/libraries/font-awesome' );
+			if ( !is_wp_error($response) ) {
+				$response = wp_remote_retrieve_body( $response );
+				if ( !is_wp_error($response) ) {
+					$response = json_decode( $response, true );
+					if ( isset( $response[0]['lastversion']) ) {
+						$version = $response[0]['lastversion'];
+						set_transient( 'tinysocial_fontawesome', $version, DAY_IN_SECONDS + HOUR_IN_SECONDS );
+					}
+				}
+			}
+		}
+		if ( 1 == version_compare( $version, $current) ) {
+			$version = $version;
+		} else {
+			$version = $current;
+		}
+		$version = apply_filters( 'tinysocial_fontawesome_version', $version );
+		return $version;
+	}
+	public static function activate() {
+		wp_schedule_event( time(), 'daily', 'tinysocial_daily' );
+	}
+	public static function deactivate() {
+		wp_clear_scheduled_hook( 'tinysocial_daily' );
 	}
 	public static function better_links( $args ) {
 		if ( 'facebook' == $args['network'] && self::$options['facebook_appid'] ) {
@@ -215,14 +250,13 @@ class tinySocial {
 		$fields,
 		'tinysocial'
 		);
-		// self::$options_url = admin_url( 'options-general.php?page=tinysocial' );
 	}
 	public static function scripts() {
 		wp_register_script('tinysocial', plugins_url( 'tinysocial.js', __FILE__ ), array('jquery'));
 		wp_enqueue_script('tinysocial');
 	}
 	public static function icons() {
-		wp_register_style('font-awesome','//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.css');
+		wp_register_style('font-awesome','//netdna.bootstrapcdn.com/font-awesome/'.self::$fontawesome.'/css/font-awesome.css');
 		wp_enqueue_style('font-awesome');
 		wp_register_style('tinysocial', plugins_url( 'tinysocial.css', __FILE__ ), array('font-awesome') );
 		wp_enqueue_style('tinysocial');
