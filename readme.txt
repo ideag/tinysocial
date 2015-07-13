@@ -4,7 +4,7 @@ Donate link: http://arunas.co/#coffee
 Tags: social sharing, share links, share, facebook, twitter, google plus, social networks
 Requires at least: 3.0.1
 Tested up to: 4.2.2
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -58,9 +58,12 @@ Sure, you can use `tinysocial_networks` filter to add more networks.
 
 1. Plugin settings
 2. Shortcodes inside editor screen
-3. Plugin output in TwentyFiftyn
+3. Plugin output in TwentyFifteen
 
 == Changelog ==
+
+= 1.1.0 =
+Add support for Custom Post types
 
 = 1.0.0 =
 Initial release to WordPress.org directory

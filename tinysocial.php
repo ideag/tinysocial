@@ -3,7 +3,7 @@
 Plugin Name: tinySocial
 Description: Easy way to insert lightweight social sharing links to your posts/pages via shortcodes.
 Author: Arūnas Liuiza
-Version: 1.0.0
+Version: 1.1.0
 Author URI: http://arunas.co/
 Plugin URI: http://arunas.co/tinysocial
 License: GPL2 or later
@@ -22,7 +22,7 @@ class tinySocial {
 		'link_template'    => '<a href="{href}" class="tinysocial {class}"{analytics}>{icon_template}{title}</a>',
 		'icon_template'    => '<i class="fa fa-{icon}"></i> ',
 		'load_fontawesome' => true,
-		'append'		   => false,
+		'append'		   => array('post'),
 		'append_template'  => '',
 		'active_networks'  => array('facebook','twitter','google'),
 		'facebook_appid'   => '',
@@ -93,6 +93,13 @@ class tinySocial {
 		// filter networks
 		self::$network_defaults = apply_filters( 'tinysocial_networks', self::$network_defaults );
 		self::$options['active_networks'] = array_keys(self::$network_defaults);
+		if ( !is_array( self::$options['append'] ) ) {
+			if ( self::$options['append'] ) {
+				self::$options['append'] = array( 'post' );	
+			} else {
+				self::$options['append'] = array( );					
+			}
+		}
 		self::$options = wp_parse_args( $options, self::$options );
 		if ( is_admin() ) {
 			add_action( 'admin_menu', array( 'tinySocial', 'admin_init'  ) );
@@ -163,7 +170,7 @@ class tinySocial {
 		return $args;
 	}	
 	public static function content( $content ) {
-		if (is_main_query() && is_single() && !doing_filter('get_the_excerpt') ) {
+		if (is_main_query() && is_singular( self::$options['append'] ) && !doing_filter('get_the_excerpt') ) {
 			$content .=  "\r\n\r\n" . self::$options['append_template'];
 		}
 		return $content;
@@ -173,6 +180,14 @@ class tinySocial {
 		$networks = array();
 		foreach (self::$network_defaults as $key => $value) {
 			$networks[$key] = $value['title']. " <code>[{$key}]</code>";
+		}
+		$args = array(
+			'public' => true,
+		);
+		$posttypes = get_post_types( $args, 'object');
+		unset( $posttypes['attachment'] );
+		foreach ( $posttypes as $key => $value) {
+			$posttypes[$key] = $value->label;
 		}
 		$fields =   array(
 			"general" => array(
@@ -189,7 +204,6 @@ class tinySocial {
 					'icon_template' => array(
 						'title'=> __('Use FontAwesome icons?','tinysocial'),
 						'args' => array (
-//							'description' => __( 'Leave the field empty if you want to disable icons.', 'tinysocial' ),
 							'values' => array(
 								'<i class="fa fa-{icon}"></i> ' => 'Yes',
 								''	 => 'No'
@@ -202,8 +216,11 @@ class tinySocial {
 						'callback' => 'checkbox',
 					),
 					'append' => array(
-						'title'=>__('Append automatically?','tinysocial'),
-						'callback' => 'checkbox',
+						'title'=> __('Append automatically to','tinysocial'),
+						'args' => array (
+							'values' => $posttypes,
+						),
+						'callback' => 'checklist',
 					),
 					'append_template' => array(
 						'title'=>__('Template for appending','tinysocial'),
