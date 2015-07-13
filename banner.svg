@@ -10,12 +10,12 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="744.09448819"
-   height="1052.3622047"
+   width="1544"
+   height="500"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="New document 1">
+   sodipodi:docname="banner.svg">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -27,7 +27,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="0.51408157"
      inkscape:cx="372.04724"
-     inkscape:cy="526.18109"
+     inkscape:cy="448.37243"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -51,20 +51,21 @@
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
+     id="layer1"
+     transform="translate(0,-552.36218)">
     <rect
        id="rect3066"
        width="1544"
        height="500"
-       x="-240"
-       y="222.93358"
+       x="0"
+       y="552.36218"
        style="fill:#ffffff;stroke:none"
        inkscape:export-filename="/var/www/banner-772-250.png"
        inkscape:export-xdpi="45"
        inkscape:export-ydpi="45" />
     <image
-       y="78.306564"
-       x="35.788994"
+       y="370.36554"
+       x="318.60114"
        id="image3130"
        xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAx0AAAHZCAIAAABsHcFPAAAAA3NCSVQICAjb4U/gAAAgAElEQVR4
 nOzdP3Da6P4/+s+e7/crzZlBlfgW0FgzdwY3ppIb+M0ds8XFW0AKkwa2MGnMLUwK41vgFMa/meDi
