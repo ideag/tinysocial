@@ -4,7 +4,7 @@ Donate link: http://arunas.co/#coffee
 Tags: social sharing, share links, share, facebook, twitter, google plus, social networks
 Requires at least: 3.0.1
 Tested up to: 4.2.2
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,11 @@ Sure, you can use `tinysocial_networks` filter to add more networks.
 3. Plugin output in TwentyFifteen
 
 == Changelog ==
+
+= 1.1.1 =
+Bug fix for image links
+Bug fix for Googe Analytics 
+Updated FontAwesome version
 
 = 1.1.0 =
 Add support for Custom Post types

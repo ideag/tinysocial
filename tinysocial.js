@@ -7,7 +7,7 @@ function tinysocial_pop_center( url, width, height ) {
 jQuery(function($){
 	$('.tinysocial').on( 'click', function(e) {
 		e.preventDefault();
-		if (typeof(_gaq) !== 'undefined') {
+		if (typeof( ga ) !== 'undefined') {
 			var network = $(this).attr('data-network');
 			var url =  $(this).attr('data-url');
 			ga( 'send', 'social', network, 'share', url );

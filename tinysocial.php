@@ -3,7 +3,7 @@
 Plugin Name: tinySocial
 Description: Easy way to insert lightweight social sharing links to your posts/pages via shortcodes.
 Author: Arūnas Liuiza
-Version: 1.1.0
+Version: 1.1.1
 Author URI: http://arunas.co/
 Plugin URI: http://arunas.co/tinysocial
 License: GPL2 or later
@@ -17,7 +17,7 @@ register_deactivation_hook( __FILE__,  array( 'tinySocial', 'deactivate' ) );
 
 class tinySocial {
 	private static $network_defaults = array();
-	private static $fontawesome = '4.2.0';
+	private static $fontawesome = '4.4.0';
 	public static $options = array(
 		'link_template'    => '<a href="{href}" class="tinysocial {class}"{analytics}>{icon_template}{title}</a>',
 		'icon_template'    => '<i class="fa fa-{icon}"></i> ',
@@ -405,6 +405,7 @@ class tinySocial {
 			case 'img' :
 			  $img_id = get_post_thumbnail_id( );
 			  $image  = wp_get_attachment_image_src( $img_id, array( 1200, 1200 ) );
+			  $image  = isset( $image[0] ) ? $image[0] : ''; 
 			  $value  = urlencode( $image );
 			break;
 			case 'desc' :
