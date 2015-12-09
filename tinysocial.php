@@ -3,7 +3,7 @@
 Plugin Name: tinySocial
 Description: Easy way to insert lightweight social sharing links to your posts/pages via shortcodes.
 Author: Arūnas Liuiza
-Version: 1.1.1
+Version: 1.1.2
 Author URI: http://arunas.co/
 Plugin URI: http://arunas.co/tinysocial
 License: GPL2 or later
@@ -18,6 +18,7 @@ register_deactivation_hook( __FILE__,  array( 'tinySocial', 'deactivate' ) );
 class tinySocial {
 	private static $network_defaults = array();
 	private static $fontawesome = '4.4.0';
+	public static $plugin_dir;
 	public static $options = array(
 		'link_template'    => '<a href="{href}" class="tinysocial {class}"{analytics}>{icon_template}{title}</a>',
 		'icon_template'    => '<i class="fa fa-{icon}"></i> ',
@@ -30,6 +31,7 @@ class tinySocial {
 		'twitter_hashtags' => '',
 	);
 	public static function init() {
+		self::$plugin_dir = plugin_dir_path( __FILE__ );
 		$options = get_option( 'tinysocial_options' );
 		self::$options['append_template'] = __( '<i>Don\'t forget to share this via [tinysocial_all].</i>', 'tinysocial' );
 		self::$network_defaults = array(
@@ -176,7 +178,7 @@ class tinySocial {
 		return $content;
 	}
 	public static function admin_init() {
-		require_once ( 'includes/options.php' );
+		require_once ( self::$plugin_dir . 'includes/options.php' );
 		$networks = array();
 		foreach (self::$network_defaults as $key => $value) {
 			$networks[$key] = $value['title']. " <code>[{$key}]</code>";

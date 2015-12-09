@@ -3,8 +3,8 @@ Contributors: ideag
 Donate link: http://arunas.co/#coffee
 Tags: social sharing, share links, share, facebook, twitter, google plus, social networks
 Requires at least: 3.0.1
-Tested up to: 4.3.1
-Stable tag: 1.1.1
+Tested up to: 4.4.0
+Stable tag: 1.1.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,10 @@ Sure, you can use `tinysocial_networks` filter to add more networks.
 3. Plugin output in TwentyFifteen
 
 == Changelog ==
+
+= 1.1.2 = 
+
+Fix relative includes
 
 = 1.1.1 =
 Bug fix for image links
