@@ -3,7 +3,7 @@ Contributors: ideag
 Donate link: http://arunas.co/#coffee
 Tags: social sharing, share links, share, facebook, twitter, google plus, social networks
 Requires at least: 3.0.1
-Tested up to: 4.6
+Tested up to: 4.9
 Stable tag: 1.1.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
