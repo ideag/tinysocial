@@ -3,7 +3,7 @@
  * Plugin Name: tinySocial
  * Description: Easy way to insert lightweight social sharing links to your posts/pages via shortcodes.
  * Author: Arūnas Liuiza
- * Version: 1.1.3
+ * Version: 1.2.0
  * Author URI: http://arunas.co/
  * Plugin URI: http://arunas.co/tinysocial
  * License: GPL2 or later
@@ -244,7 +244,7 @@ class tinySocial {
 					'facebook_appid' => array(
 						'title'=>__('Facebook App ID','tinysocial'),
 						'args' => array (
-							'description' => __( 'This is needed for better Facebook sharing.', 'tinysocial' ),
+							'description' => __( 'This is required for Facebook sharing to work.', 'tinysocial' ),
 						),
 						'callback' => 'text',
 					),

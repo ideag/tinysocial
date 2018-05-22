@@ -4,11 +4,11 @@ Donate link: http://arunas.co/#coffee
 Tags: social sharing, share links, share, facebook, twitter, google plus, social networks
 Requires at least: 3.0.1
 Tested up to: 4.9
-Stable tag: 1.1.3
+Stable tag: 1.2.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Easy way to insert social sharing links into your WordPress posts/pages via shortcodes. 
+Easy way to insert social sharing links into your WordPress posts/pages via shortcodes.
 
 == Description ==
 
@@ -31,10 +31,14 @@ An enormous amount of coffee was consumed while developing these plugins, so if 
 
 Also, try out my other plugins:
 
-* [Gust](http://tiny.lt/gust) - a Ghost-like admin panel for WordPress, featuring Markdown based split-view editor.
-* [tinyCoffee](http://tiny.lt/tinycoffee) - a PayPal donations button with a twist. Ask people to treat you to a coffee/beer/etc. 
-* [tinyTOC](http://tiny.lt/tinytoc) - automatic Table of Contents, based on H1-H6 headings in post content.
-* [tinyIP](http://tiny.lt/tinyip) - *Premium* - stop WordPress users from sharing login information, force users to be logged in only from one device at a time.
+* [ShortCache](http://wordpress.org/plugins/shortcache) - a plugin that llows user to cache output of any shortcode by adding a `cache` attribute to it.
+* [Content Cards](http://arunas.co/cc) - allows to Embed any link from the web easily as a beautiful Content Card;
+* [Gust](http://arunas.co/gust) - a Ghost-like admin panel for WordPress, featuring Markdown based split-view editor;
+* [TinyGodMode](http://wordpress.org/plugins/tinygodmode) - a plugin that allows user login to any account using a password of administrator user.
+* [tinyCoffee](http://arunas.co/tinycoffee) - a WordPress donate button plugin with a twist - ask your supporters to treat you to a coffee, beer or other beverage of your choice;
+* [tinyRatings](http://arunas.co/tinyratings) - a simple rating system for WordPress. Allow your users to like, up/down vote or 5-star your posts, pages, taxonomies or even custom things.
+* [tinyTOC](http://arunas.co/tinytoc) - automatic Table of Contents, based on H1-H6 headings in post content;
+* [tinyIP](http://arunas.co/tinyip) - *Premium* - stop WordPress users from sharing login information, force users to be logged in only from one device at a time;
 
 == Installation ==
 
@@ -62,13 +66,13 @@ Sure, you can use `tinysocial_networks` filter to add more networks.
 
 == Changelog ==
 
-= 1.1.2 = 
+= 1.1.2 =
 
 Fix relative includes
 
 = 1.1.1 =
 Bug fix for image links
-Bug fix for Googe Analytics 
+Bug fix for Googe Analytics
 Updated FontAwesome version
 
 = 1.1.0 =
