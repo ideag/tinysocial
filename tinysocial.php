@@ -1,14 +1,13 @@
 <?php
-/*
-Plugin Name: tinySocial
-Description: Easy way to insert lightweight social sharing links to your posts/pages via shortcodes.
-Author: Arūnas Liuiza
-Version: 1.1.3
-Author URI: http://arunas.co/
-Plugin URI: http://arunas.co/tinysocial
-License: GPL2 or later
-Text Domain: tinysocial
-Domain Path: /languages
+/**
+ * Plugin Name: tinySocial
+ * Description: Easy way to insert lightweight social sharing links to your posts/pages via shortcodes.
+ * Author: Arūnas Liuiza
+ * Version: 1.1.3
+ * Author URI: http://arunas.co/
+ * Plugin URI: http://arunas.co/tinysocial
+ * License: GPL2 or later
+ * Text Domain: tinysocial
 */
 
 add_action( 'plugins_loaded', array( 'tinySocial', 'init' ) );
@@ -20,14 +19,18 @@ class tinySocial {
 	private static $fontawesome = '4.4.0';
 	public static $plugin_dir;
 	public static $options = array(
-		'link_template'    => '<a href="{href}" class="tinysocial {class}"{analytics}>{icon_template}{title}</a>',
-		'icon_template'    => '<i class="fa fa-{icon}"></i> ',
+		'link_template'    => '<a href  ="{href}" class ="tinysocial {class}"{analytics}>{icon_template}{title}</a>',
+		'icon_template'    => '<i class ="fa fa-{icon}"></i> ',
 		'load_fontawesome' => true,
-		'append'		   => array('post'),
+		'append'		       => array( 'post' ),
 		'append_template'  => '',
-		'active_networks'  => array('facebook','twitter','google'),
+		'active_networks'  => array(
+			'facebook',
+			'twitter',
+			'google',
+		),
 		'facebook_appid'   => '',
-		'twitter_via'	   => '',
+		'twitter_via'	     => '',
 		'twitter_hashtags' => '',
 	);
 	public static function init() {
@@ -97,9 +100,9 @@ class tinySocial {
 		self::$options['active_networks'] = array_keys(self::$network_defaults);
 		if ( !is_array( self::$options['append'] ) ) {
 			if ( self::$options['append'] ) {
-				self::$options['append'] = array( 'post' );	
+				self::$options['append'] = array( 'post' );
 			} else {
-				self::$options['append'] = array( );					
+				self::$options['append'] = array( );
 			}
 		}
 		self::$options = wp_parse_args( $options, self::$options );
@@ -170,7 +173,7 @@ class tinySocial {
 			}
 		}
 		return $args;
-	}	
+	}
 	public static function content( $content ) {
 		if (is_main_query() && is_singular( self::$options['append'] ) && !doing_filter('get_the_excerpt') ) {
 			$content .=  "\r\n\r\n" . self::$options['append_template'];
@@ -285,7 +288,7 @@ class tinySocial {
 		if ( is_array( $args ) ) {
 			foreach ($args as $key => $value) {
 				$temp[] = "{$key}=>\"{$value}\"";
-			}			
+			}
 		}
 		$temp = implode( ' ', $temp );
 		$result =  do_shortcode("[tinysocial network=\"{$tag}\" {$temp}]{$content}[/tinysocial]");
@@ -328,7 +331,7 @@ class tinySocial {
 					continue;
 				}
 				$temp[] = "[{$value}]";
-			}			
+			}
 		}
 		if ( 1 < sizeof( $temp ) ) {
 			$t = array_pop( $temp );
@@ -407,7 +410,7 @@ class tinySocial {
 			case 'img' :
 			  $img_id = get_post_thumbnail_id( );
 			  $image  = wp_get_attachment_image_src( $img_id, array( 1200, 1200 ) );
-			  $image  = isset( $image[0] ) ? $image[0] : ''; 
+			  $image  = isset( $image[0] ) ? $image[0] : '';
 			  $value  = urlencode( $image );
 			break;
 			case 'desc' :
@@ -426,7 +429,7 @@ class tinySocial {
 			  $value = urlencode( get_bloginfo('title') );
 			break;
 			default:
-			  $value = false; 
+			  $value = false;
 			break;
 		}
 		$value = apply_filters( 'tinysocial_replacement_value', $value, $key );
