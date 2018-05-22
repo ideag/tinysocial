@@ -16,7 +16,7 @@ register_deactivation_hook( __FILE__,  array( 'tinySocial', 'deactivate' ) );
 
 class tinySocial {
 	private static $network_defaults = array();
-	private static $fontawesome = '4.4.0';
+	private static $fontawesome = '4.7.0';
 	public static $plugin_dir;
 	public static $options = array(
 		'link_template'    => '<a href  ="{href}" class ="tinysocial {class}"{analytics}>{icon_template}{title}</a>',
@@ -40,7 +40,7 @@ class tinySocial {
 		self::$network_defaults = array(
 			'facebook' => array(
 				'title' => __( 'Facebook', 'tinysocial' ),
-				'href'  => 'https://www.facebook.com/share.php?u={url}&redirect_uri={redirect_url}',
+				'href'  => 'https://www.facebook.com/dialog/share?app_id={app_id}&display=popup&href={url}&redirect_uri={redirect_url}',
 				'class' => 'tinysocial-facebook',
 			),
 			'twitter' => array(
@@ -95,6 +95,9 @@ class tinySocial {
 				'class' => 'tinysocial-delicious',
 			),
 		);
+		if ( ! self::$options['facebook_appid'] ) {
+			 unset( self::$network_defaults['facebook'] );
+		}
 		// filter networks
 		self::$network_defaults = apply_filters( 'tinysocial_networks', self::$network_defaults );
 		self::$options['active_networks'] = array_keys(self::$network_defaults);
@@ -110,7 +113,7 @@ class tinySocial {
 			add_action( 'admin_menu', array( 'tinySocial', 'admin_init'  ) );
 		}
 		// FontAwesome version
-        self::$fontawesome = self::get_fontawesome_version( self::$fontawesome, false );
+    self::$fontawesome = self::get_fontawesome_version( self::$fontawesome, false );
 		add_action( 'tinysocial_daily', array( 'tinySocial', 'get_fontawesome_version' ) );
 		// network specific shortcodes and action hooks
 		foreach ( array_keys( self::$network_defaults ) as $network ) {
@@ -161,9 +164,6 @@ class tinySocial {
 		wp_clear_scheduled_hook( 'tinysocial_daily' );
 	}
 	public static function better_links( $args ) {
-		if ( 'facebook' == $args['network'] && self::$options['facebook_appid'] ) {
-			 $args['href'] = 'https://www.facebook.com/dialog/share?app_id={app_id}&display=page&href={url}&redirect_uri={redirect_url}';
-		}
 		if ( 'twitter' == $args['network'] && ( self::$options['twitter_via'] || self::$options['twitter_hashtags'] ) ) {
 			if ( self::$options['twitter_via'] ) {
 				$args['href'] .= '&via={via}';
