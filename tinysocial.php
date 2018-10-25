@@ -19,7 +19,7 @@ class tinySocial {
 	private static $fontawesome = '4.7.0';
 	public static $plugin_dir;
 	public static $options = array(
-		'link_template'    => '<a href  ="{href}" class ="tinysocial {class}"{analytics}>{icon_template}{title}</a>',
+		'link_template'    => '<a href  ="{href}" class ="tinysocial {class}"{analytics}{popup_dimensions}>{icon_template}{title}</a>',
 		'icon_template'    => '<i class ="fa fa-{icon}"></i> ',
 		'load_fontawesome' => true,
 		'append'		       => array( 'post' ),
@@ -94,8 +94,15 @@ class tinySocial {
 				'href'  => 'https://delicious.com/save?v=5&provider={provider}&noui&jump=close&url={url}&title={title}',
 				'class' => 'tinysocial-delicious',
 			),
+	    'whatsapp' => array(
+		'title' => __( 'WhatsApp', 'tinysocial' ),
+		'href'  => 'https://api.whatsapp.com/send?text={plain_title}%20{url}',
+		'class' => 'tinysocial-whatsapp',
+		'height'=> '700',
+		'width' => '800',
+	    ),
 		);
-		
+
 		// filter networks
 		self::$network_defaults = apply_filters( 'tinysocial_networks', self::$network_defaults );
 		self::$options['active_networks'] = array_keys(self::$network_defaults);
@@ -109,12 +116,13 @@ class tinySocial {
 		self::$options = wp_parse_args( $options, self::$options );
 
 		if ( ! self::$options['facebook_appid'] ) {
-			unset( self::$network_defaults['facebook'] );
-	   	}
+            unset( self::$network_defaults['facebook'] );
+        }
 
 		if ( is_admin() ) {
 			add_action( 'admin_menu', array( 'tinySocial', 'admin_init'  ) );
 		}
+
 		// FontAwesome version
     self::$fontawesome = self::get_fontawesome_version( self::$fontawesome, false );
 		add_action( 'tinysocial_daily', array( 'tinySocial', 'get_fontawesome_version' ) );
@@ -205,7 +213,7 @@ class tinySocial {
 					'link_template' => array(
 						'title'=>__('Template for the social links','tinysocial'),
 						'args' => array (
-							'description' => __( 'Available placeholders: <code>{href}</code>, <code>{title}</code>, <code>{class}</code>, <code>{analytics}</code> and <code>{icon_template}</code>.', 'tinysocial' ),
+							'description' => __( 'Available placeholders: <code>{href}</code>, <code>{title}</code>, <code>{class}</code>, <code>{analytics}</code>, <code>{popup_dimensions}</code> and <code>{icon_template}</code>.', 'tinysocial' ),
 						),
 						'callback' => 'text',
 					),
@@ -388,6 +396,16 @@ class tinySocial {
 				$network = esc_attr( ucfirst( $args['network'] ) );
 				$value = " data-network=\"{$network}\" data-url=\"{$url}\"";
 			}
+            if ( !$value && 'popup_dimensions' === $key ) {
+                if (isset($args['width'])) {
+                    $width = esc_attr($args['width']);
+                    $value .= " data-width=\"{$width}\"";
+                }
+                if (isset($args['height'])) {
+                    $height = esc_attr($args['height']);
+                    $value .= " data-height=\"{$height}\"";
+                }
+            }
 			$value = apply_filters( 'tinysocial_link_replacement_value', $value, $key, $args );
 			$replacement["{{$key}}"] = $value;
 		}
@@ -410,6 +428,9 @@ class tinySocial {
 			case 'title' :
 			  $value = urlencode( get_the_title() );
 			break;
+            case 'plain_title' :
+              $value = get_the_title();
+            break;
 			case 'img' :
 			  $img_id = get_post_thumbnail_id( );
 			  $image  = wp_get_attachment_image_src( $img_id, array( 1200, 1200 ) );
