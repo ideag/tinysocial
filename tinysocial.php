@@ -95,9 +95,7 @@ class tinySocial {
 				'class' => 'tinysocial-delicious',
 			),
 		);
-		if ( ! self::$options['facebook_appid'] ) {
-			 unset( self::$network_defaults['facebook'] );
-		}
+		
 		// filter networks
 		self::$network_defaults = apply_filters( 'tinysocial_networks', self::$network_defaults );
 		self::$options['active_networks'] = array_keys(self::$network_defaults);
@@ -109,6 +107,11 @@ class tinySocial {
 			}
 		}
 		self::$options = wp_parse_args( $options, self::$options );
+
+		if ( ! self::$options['facebook_appid'] ) {
+			unset( self::$network_defaults['facebook'] );
+	   	}
+
 		if ( is_admin() ) {
 			add_action( 'admin_menu', array( 'tinySocial', 'admin_init'  ) );
 		}
