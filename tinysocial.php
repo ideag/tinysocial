@@ -3,7 +3,7 @@
  * Plugin Name: tinySocial
  * Description: Easy way to insert lightweight social sharing links to your posts/pages via shortcodes.
  * Author: Arūnas Liuiza
- * Version: 1.3.1
+ * Version: 1.3.2
  * Author URI: http://arunas.co/
  * Plugin URI: http://arunas.co/tinysocial
  * License: GPL2 or later
@@ -13,7 +13,7 @@
 add_action( 'plugins_loaded', array( 'tinySocial', 'init' ) );
 
 class tinySocial {
-	public static $asset_version     = '1.3.1';
+	public static $asset_version     = '1.3.2';
 	private static $network_defaults = array();
 	public static $plugin_dir;
 
