@@ -18,7 +18,7 @@ class tinySocial {
 	public static $plugin_dir;
 
 	public static $options          = array(
-		'link_template'    => '<a href="{href}" class ="tinysocial {class}"{analytics}{popup_dimensions}>{icon_template}<span class="tinysocial__title">{title}</span></a>',
+		'link_template'    => '<a href="{href}" class="tinysocial {class}"{analytics}{popup_dimensions}>{icon_template}<span class="tinysocial__title">{title}</span></a>',
 		'icon_template'    => true,
 		'append'           => array( 'post' ),
 		'append_template'  => '',
@@ -232,6 +232,8 @@ class tinySocial {
 						'title'    => __( 'Template for the social links', 'tinysocial' ),
 						'args'     => array(
 							'description' => __( 'Available placeholders: <code>{href}</code>, <code>{title}</code>, <code>{class}</code>, <code>{analytics}</code>, <code>{popup_dimensions}</code> and <code>{icon_template}</code>.', 'tinysocial' ),
+							'cols'        => 80,
+							'rows'        => 4,
 						),
 						'callback' => 'textarea',
 					),
