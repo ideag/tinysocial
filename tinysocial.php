@@ -172,8 +172,14 @@ class tinySocial {
 			add_filter( 'the_content', array( 'tinySocial', 'content' ), 1 );
 		}
 		add_filter( 'tinysocial_network_args', array( 'tinySocial', 'better_links' ) );
-
+		add_filter( 'tinysocial_icon_template', array( 'tinySocial', 'hide_icon' ), 100 );
 		add_action( 'init', array( 'tinySocial', 'init_filters' ) );
+	}
+	public function hide_icon( $icon_template ) {
+		if ( self::$options['icon_template'] ) {
+			return $icon_template;
+		}
+		return '';
 	}
 
 	public static function init_filters() {
@@ -227,7 +233,7 @@ class tinySocial {
 						'args'     => array(
 							'description' => __( 'Available placeholders: <code>{href}</code>, <code>{title}</code>, <code>{class}</code>, <code>{analytics}</code>, <code>{popup_dimensions}</code> and <code>{icon_template}</code>.', 'tinysocial' ),
 						),
-						'callback' => 'text',
+						'callback' => 'textarea',
 					),
 					'icon_template'    => array(
 						'title'    => __( 'Display icons?', 'tinysocial' ),
