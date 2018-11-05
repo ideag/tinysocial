@@ -4,7 +4,7 @@ Donate link: http://arunas.co/#coffee
 Tags: social sharing, share links, share, facebook, twitter, google plus, social networks
 Requires at least: 3.0.1
 Tested up to: 4.9
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -65,6 +65,9 @@ Sure, you can use `tinysocial_networks` filter to add more networks.
 3. Plugin output in TwentyFifteen
 
 == Changelog ==
+
+= 1.3.1
+Add filter to actually hide icons if user chooses to disable them in plugin options
 
 = 1.3.0
 Switched from FontAwesome to SVG icons
