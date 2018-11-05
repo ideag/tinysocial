@@ -1,0 +1,8 @@
+a.tinysocial{
+	white-space : pre;
+}
+
+.tinysocial__icon > svg {
+    width: 15px;
+    height: 15px;
+}
