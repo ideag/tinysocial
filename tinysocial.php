@@ -175,7 +175,7 @@ class tinySocial {
 		add_filter( 'tinysocial_icon_template', array( 'tinySocial', 'hide_icon' ), 100 );
 		add_action( 'init', array( 'tinySocial', 'init_filters' ) );
 	}
-	public function hide_icon( $icon_template ) {
+	public static function hide_icon( $icon_template ) {
 		if ( self::$options['icon_template'] ) {
 			return $icon_template;
 		}
